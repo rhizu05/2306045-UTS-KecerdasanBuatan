@@ -61,3 +61,20 @@ Alur program:
 - Berdasarkan fakta gejala, sistem mengidentifikasi hama.
 - Menampilkan hasil ke pengguna.
 
+# Review Jurnal
+
+## Judul Jurnal
+Design and Implementation of an Intelligent Medical Mattress System
+
+## Deskripsi
+Dokumen ini merupakan review dari jurnal berjudul "Design and Implementation of an Intelligent Medical Mattress System" yang ditulis oleh Boyu Xu dan diterbitkan pada Proceedings of the 6th International Conference on Computing and Data Science tahun 2024.
+
+## Isi Review
+- Ringkasan:
+Menjelaskan tujuan penelitian, metode AI yang digunakan (seperti sensor tekanan tertanam dan posture recognition), serta manfaat sistem kasur medis pintar dalam mencegah luka tekan dan meningkatkan kenyamanan pasien.
+
+- Ide Pengembangan Lanjutan:
+Menambahkan sensor lebih akurat, penggunaan deep learning (CNN), integrasi IoT, serta desain kasur modular.
+
+- Ide Aplikasi Serupa:
+Mengusulkan sistem Smart Floor Sensor untuk rumah lansia guna mendeteksi jatuh dan memantau aktivitas harian.
