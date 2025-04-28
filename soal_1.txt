@@ -1,0 +1,141 @@
+Seorang petani ingin sistem Al yang bisa membantu menentukan jenis hama tanaman berdasarkan gejala seperti:   
+- Daun menguning  
+- Terdapat bercak hitam  
+- Daun berlubang  
+- Tanaman layu
+
+Tugas
+1. Buat sistem pakar berbasis atıran logika (gunakan minimal 4 aturan). 
+2. Gunakan logika proposisional, pseudocode dan pakai Prolog atau python. 
+3. Tambahkan penjelasan alur inferensi dari input -> output  
+
+Jawaban
+1. Aturan Logika
+   Definisikan terlebih dahulu gejalanya sebagai proposisi:
+   - G1 : Daun menguning
+   - G2 : Terdapat bercak hitam
+   - G3 : Daun berlubang
+   - G4 : Tanaman layu
+
+   Jenis hama:
+   - H1 : Hama Wereng
+   - H2 : Hama Jamur
+   - H3 : Hama Ulat
+   - H4 : Hama Akar
+
+   Aturan-aturan:
+   - Aturan 1: Jika daun menguning DAN tanaman layu, maka hama adalah Hama Wereng.
+   - Aturan 2: Jika terdapat bercak hitam, maka hama adalah Hama Jamur.
+   - Aturan 3: Jika daun berlubang, maka hama adalah Hama Ulat.
+   - Aturan 4: Jika tanaman layu DAN tidak ada bercak hitam, maka hama adalah Hama Akar.
+
+2. Berikut adalah logika proposional, pseudocode, prolog dan python
+   a. Logika Proposional
+      1) (G1 ∧ G4) → H1
+	 (Jika daun menguning dan tanaman layu, maka hama Wereng)
+      2) G2 → H2
+   	 (Jika ada bercak hitam, maka hama Jamur)
+      3) G3 → H3
+	 (Jika daun berlubang, maka hama Ulat)
+      4) (G4 ∧ ¬G2) → H4
+	 (Jika tanaman layu dan tidak ada bercak hitam, maka hama Akar)
+
+   b. Pseudocode
+      Input gejala (G1, G2, G3, G4)
+      
+      IF G1 = True AND G4 = True THEN
+          Hama = Wereng
+      ELSE IF G2 = True THEN
+	  Hama = Jamur
+      ELSE IF G3 = True THEN
+	  Hama = Ulat
+      ELSE IF G4 = True AND G2 = False THEN
+	  Hama = Akar
+      ELSE
+	  Hama = TIdak diketahui
+      Output Hama
+
+   c. Prolog
+      % Predikat untuk input gejala dari pengguna
+      tanya_gejala(Gejala) :-
+    	  write('Apakah '), write(Gejala), write('? (1 = ya, 0 = tidak): '),
+    	     read(Input),
+    	     (Input = 1 -> assert(gejala(Gejala)); true).
+
+      % Fakta dan aturan Hama
+      hama(wereng) :-
+    	     gejala(daun_menguning),
+    	     gejala(tanaman_layu).
+
+      hama(jamur) :-
+                gejala(bercak_hitam).
+
+      hama(ulat) :-
+                gejala(daun_berlubang).
+
+      hama(akar) :-
+                gejala(tanaman_layu),
+                \+ gejala(bercak_hitam).
+
+      % Predikat untuk memulai identifikasi hama
+      identifikasi_hama :-
+                % Meminta input gejala dari pengguna
+                tanya_gejala(daun_menguning),
+                 tanya_gejala(bercak_hitam),
+                 tanya_gejala(daun_berlubang),
+                 tanya_gejala(tanaman_layu),
+
+            % Menemukan hama berdasarkan gejala yang diberikan
+                        findall(Hama, hama(Hama), Hasil),
+                        (Hasil \= [] ->
+        	              tampilkan_hama(Hasil)
+    	    ;
+        	      writeln('Hama tidak diketahui.')
+                        ).
+
+      % Predikat bantu untuk menampilkan hasil
+      tampilkan_hama([]).
+      tampilkan_hama([H|T]) :-
+                write('Jenis Hama: '), writeln(H),
+                tampilkan_hama(T).
+
+   d. Python
+      def identifikasi_hama(daun_menguning, bercak_hitam, daun_berlubang, tanaman_layu):
+        	  hasil = []
+
+               	     if daun_menguning and tanaman_layu:
+        	       hasil.append("Hama Wereng")
+    	     if bercak_hitam:
+                                 hasil.append("Hama Jamur")
+    	     if daun_berlubang:
+        	     hasil.append("Hama Ulat")
+    	     if tanaman_layu and not bercak_hitam:
+        	     hasil.append("Hama Akar")
+
+    	     if not hasil:
+        	            hasil.append("Hama tidak diketahui")
+    
+    	     return hasil
+
+       # Contoh input
+       G1 = bool(int(input("Apakah daun menguning? (1 = ya, 0 = tidak): ")))
+       G2 = bool(int(input("Apakah ada bercak hitam? (1 = ya, 0 = tidak): ")))
+       G3 = bool(int(input("Apakah daun berlubang? (1 = ya, 0 = tidak): ")))
+       G4 = bool(int(input("Apakah tanaman layu? (1 = ya, 0 = tidak): ")))
+
+       hasil = identifikasi_hama(G1, G2, G3, G4)
+
+       print("Jenis Hama yang terdeteksi:")
+       for hama in hasil:
+    	      print("-", hama)
+
+3. Alur Inferensi (Input ke Output)
+   Langkah-langkah inferensinya:
+   1) User menginput gejala-gejala (jawaban Ya/Tidak → 1/0).
+   2) Sistem membaca input dan mengecek aturan satu per satu:
+      - Cek dulu apakah daun menguning dan tanaman layu → jika iya, hama Wereng.
+      - Kalau tidak, cek apakah ada bercak hitam → jika iya, hama Jamur.
+      - Kalau tidak, cek apakah daun berlubang → jika iya, hama Ulat.
+      - Kalau tidak, cek apakah tanaman layu tanpa bercak hitam → jika iya, hama Akar.
+   3) Jika semua kondisi tidak terpenuhi, maka sistem mengoutput "Hama tidak diketahui".
+   4) Output jenis hama muncul berdasarkan aturan yang cocok.
